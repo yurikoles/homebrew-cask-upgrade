@@ -165,7 +165,7 @@ module Bcu
 
       ohai "Cleaning up old versions" if options.verbose
       apps.each do |app|
-        installation_cleanup app, options unless app[:mas]
+        installation_cleanup app unless app[:mas]
       end
     end
 
@@ -202,7 +202,7 @@ module Bcu
       success
     end
 
-    def installation_cleanup(app, options)
+    def installation_cleanup(app)
       # Remove the old versions.
       app[:installed_versions].each do |version|
         system "rm", "-rf", "#{CASKROOM}/#{app[:token]}/#{Shellwords.escape(version)}" if version != "latest"
